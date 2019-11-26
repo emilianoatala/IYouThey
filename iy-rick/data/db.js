@@ -5,7 +5,8 @@ mongoose.Promise = global.Promise
 mongoose.connect("mongodb://localhost/iYouThey", {useNewUrlParser:true})
 
 const postsSchema = new Schema({
-    title: String
+    description: String,
+    createdAt:String
 })
 
 const Posts = model("posts", postsSchema)

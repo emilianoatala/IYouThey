@@ -1,8 +1,19 @@
 type Post {
     id:ID
-    title: String
+    description: String
+    createdAt: String
 }
 
 type Query {
  getAllPosts : [Post]
+}
+
+input PostInput {
+    id:ID
+    description: String
+    createdAt: String
+}
+
+type Mutation {
+    setPost(input:PostInput): Post
 }
