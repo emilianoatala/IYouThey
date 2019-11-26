@@ -1,12 +1,20 @@
 import React from 'react';
 import "./Chat.scss"
 import ChatPost from '../post/ChatPost';
+import {useQuery} from "@apollo/react-hooks"
+import { GET_POSTS } from '../../../querys';
 
 const Chat = () => {
+    const {data, loading, error} = useQuery(GET_POSTS,{
+        pollInterval:10
+    })
     return ( 
         <div className="chat">
-            <ChatPost username="Emiliano" description="Mandale gas a este chat"/>
-            <ChatPost username="Emiliano" description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo voluptate rem et repudiandae eligendi quo tenetur sequi aspernatur ad ipsam."/>
+        {(()=>{
+            if(loading) return "Loading.."
+            if(error) return `Error: ${error.message}`
+            return (data.getAllPosts.map(item=> <ChatPost username="Emiliano" description={item.description} createdAt={item.createdAt}/>))
+            })()}
         </div>
      );
 }
