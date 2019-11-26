@@ -4,7 +4,7 @@ import { ApolloProvider } from "react-apollo";
 import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { config } from './config';
 import { ROUTES } from './helpers/routes';
-import DashboardContainer from './components/users/DashboardContainer';
+import DashboardContainer from './components/dashboard/DashboardContainer';
 
 const client = new ApolloClient({
   uri: config.SERVER_URI,

@@ -1,0 +1,14 @@
+@import "../../assets/variables";
+
+.dashboard-main-container{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    height: 100vh;
+    background-color: $grey;
+    .right-section-container{
+        align-items: center;
+        .chat-main-container{
+            margin-top: 20px;
+        }
+    }
+}

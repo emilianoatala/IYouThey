@@ -1,0 +1,28 @@
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+div{
+    box-sizing: border-box;
+}
+.column-container{
+      display: flex;
+      flex-direction: column;
+}
+.row-container{
+    display: flex;
+    flex-direction: row;
+}
+.center{
+      justify-content: center;
+      align-items: center;
+}
+
+ul{
+      list-style: none;
+}
+
+p{
+  margin: 0px;
+}

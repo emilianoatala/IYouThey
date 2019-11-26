@@ -1,0 +1,33 @@
+@import "../../../assets/variables";
+
+.chat-post-container{
+    max-width: 90%;
+    width: auto;
+    height: auto;
+    min-height: 15px;
+    margin-top: 15px;
+    align-items: center;
+    font-size: 14px;
+
+    .info-container{
+        background-color: $grey;
+        padding: 10px 20px 10px 20px;
+        border-radius: 20px;
+        >span{
+            display: block;
+            font-weight: bold;
+            margin-right: 10px;
+            color:$darker;
+            display: block; 
+            align-self: flex-start;
+            span{
+                color: $grey2;
+                font-size: 12px;
+                margin-left: 10px;
+            }
+        }
+    }
+    
+    
+}
+

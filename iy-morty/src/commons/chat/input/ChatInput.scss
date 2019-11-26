@@ -1,0 +1,18 @@
+@import "../../../assets/variables";
+
+.chat-input-container{
+    height: 40px;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+    border-top: 1px solid $grey1;
+
+    input{
+        border: none;
+        border-bottom: 1px solid $grey2; 
+        width: 90%;
+        outline: none;
+        margin-left: 30px;
+    }
+}
