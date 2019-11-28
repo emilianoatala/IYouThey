@@ -1,20 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import "./Chat.scss"
 import ChatPost from '../post/ChatPost';
-import {useQuery} from "@apollo/react-hooks"
-import { GET_POSTS } from '../../../querys';
+import { useSubscription} from "@apollo/react-hooks"
+import { SUBCRIBE_POST } from '../../../subscription';
 
-const Chat = () => {
-    const {data, loading, error} = useQuery(GET_POSTS,{
-        pollInterval:10
-    })
+const Chat = ({info}) => {
+    const [post, setPosts]= useState({})
+    const { data} = useSubscription(
+        SUBCRIBE_POST)
+
+    useEffect(()=>{
+       info&& setPosts(info)
+    }, [])
+    console.log(data)
+
     return ( 
         <div className="chat">
-        {(()=>{
-            if(loading) return "Loading.."
-            if(error) return `Error: ${error.message}`
-            return (data.getAllPosts.map(item=> <ChatPost username="Emiliano" description={item.description} createdAt={item.createdAt}/>))
-            })()}
+         {post.getAllPosts&&post.getAllPosts.map(item=> <ChatPost username="Emiliano" description={item.description} createdAt={item.createdAt}/>)} 
         </div>
      );
 }

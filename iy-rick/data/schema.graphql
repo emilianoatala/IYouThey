@@ -4,6 +4,10 @@ type Post {
     createdAt: String
 }
 
+type Subscription {
+    newPost:Post
+}
+
 type Query {
  getAllPosts : [Post]
 }
