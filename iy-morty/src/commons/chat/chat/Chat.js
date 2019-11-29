@@ -4,15 +4,23 @@ import ChatPost from '../post/ChatPost';
 import { useSubscription} from "@apollo/react-hooks"
 import { SUBCRIBE_POST } from '../../../subscription';
 
+const messagesEndRef = React.createRef()
+
 const Chat = ({info}) => {
-    const [post, setPosts]= useState([])
+    const [post, setPosts]= useState({})
     const { data} = useSubscription(
         SUBCRIBE_POST)
 
+    const scrollToBottom = () => {
+        let scroll = messagesEndRef.current && messagesEndRef.current.scrollHeight + 3000
+        messagesEndRef.current.scrollTo(0,scroll)
+      }
+
     useEffect(()=>{
-       info && setPosts(info)
-    }, [])
+       setPosts(info)
+    }, [info])
     
+console.log(messagesEndRef.current && messagesEndRef.current.scrollHeight)
 
     useEffect(()=>{
         if(data&&data.newPost!=={}){
@@ -22,9 +30,11 @@ const Chat = ({info}) => {
         }
     },[data])
 
+    
+    useEffect(scrollToBottom,[post])
 
     return ( 
-        <div className="chat">
+        <div className="chat" ref={messagesEndRef}>
          {post.getAllPosts&&post.getAllPosts.map(item=> <ChatPost username="Emiliano" description={item.description} createdAt={item.createdAt}/>)} 
         </div>
      );
