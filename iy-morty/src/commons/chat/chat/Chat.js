@@ -20,7 +20,6 @@ const Chat = ({info}) => {
        setPosts(info)
     }, [info])
     
-console.log(messagesEndRef.current && messagesEndRef.current.scrollHeight)
 
     useEffect(()=>{
         if(data&&data.newPost!=={}){
