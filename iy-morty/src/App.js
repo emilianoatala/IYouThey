@@ -1,19 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
-import { ApolloLink, split } from 'apollo-link';
-import ApolloClient, { InMemoryCache } from "apollo-boost";
+import {  split } from 'apollo-link';
+import  { InMemoryCache } from "apollo-boost";
 import { config } from './config';
 import { ROUTES } from './helpers/routes';
 import DashboardContainer from './components/dashboard/DashboardContainer';
 import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
+import ApolloClient from 'apollo-client'
 
 const httpLink = new HttpLink({
-  uri: config.SERVER_URI,
-  credentials:'include'
+  uri: config.SERVER_URI
 });
+
 
 const wsLink = new WebSocketLink({
   uri: `ws://localhost:8070/graphql`,
@@ -22,7 +23,7 @@ const wsLink = new WebSocketLink({
   }
 });
 
-const terminatingLink = split(
+const link = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
     return (
@@ -33,7 +34,7 @@ const terminatingLink = split(
   wsLink,
   httpLink,
 );
-const link = ApolloLink.from([terminatingLink]);
+
 
 const client = new ApolloClient({
   link,
@@ -46,17 +47,6 @@ const client = new ApolloClient({
       },
 })
 
-
-// const client = new ApolloClient({
-//   uri: config.SERVER_URI,
-//   cache: new InMemoryCache({
-//     addTypename: false
-//   }),
-//   onError: ({ networkError, graphQLErrors }) => {
-//     console.log("graphQLErrors", graphQLErrors);
-//     console.log("networkError", networkError);
-//   }
-// });
 
 function App() {
   return (

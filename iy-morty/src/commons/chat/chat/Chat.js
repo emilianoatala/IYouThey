@@ -5,14 +5,23 @@ import { useSubscription} from "@apollo/react-hooks"
 import { SUBCRIBE_POST } from '../../../subscription';
 
 const Chat = ({info}) => {
-    const [post, setPosts]= useState({})
+    const [post, setPosts]= useState([])
     const { data} = useSubscription(
         SUBCRIBE_POST)
 
     useEffect(()=>{
-       info&& setPosts(info)
+       info && setPosts(info)
     }, [])
-    console.log(data)
+    
+
+    useEffect(()=>{
+        if(data&&data.newPost!=={}){
+        const newData = {...post}
+        newData.getAllPosts.push(data.newPost)
+        setPosts(newData)
+        }
+    },[data])
+
 
     return ( 
         <div className="chat">
