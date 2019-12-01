@@ -1,11 +1,21 @@
-import React from 'react';
-import AccountButton from '../../../commons/accountButton/AccountButton';
+import React,{useState} from 'react';
 import "./AccountHeader.scss"
+import { userContext } from '../../../helpers/context';
+import AccountMenu from '../../../commons/accountMenu/AccountMenu';
+
 const AccountHeader = () => {
+    const [showMenu, setShowMenu] = useState(false)
     return ( 
-        <div className="account-header-container row-container">
-            <AccountButton/>
-        </div>
+        <userContext.Consumer>
+        {(data)=>(
+            <div className="account-header-container row-container">
+                <div className="action-menu">
+                <p onClick={()=>setShowMenu(showMenu=>showMenu=!showMenu)}>. . .</p>
+                </div>
+                {showMenu && data.user && <AccountMenu username={data.user.name} lastname={data.user.lastname} refetch={data.refetch}/>}
+            </div>
+        )}     
+        </userContext.Consumer>
      );
 }
  

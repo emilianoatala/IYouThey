@@ -16,7 +16,7 @@ const LoginForm = props => {
         <form className="column-container" onSubmit={(e)=>{
             e.preventDefault();
             validateUser({variables:{input:body}}).then(async response=>{
-                localStorage.setItem("user", JSON.stringify(response.data.validateUser))
+                localStorage.setItem("token", response.data.validateUser.token)
                 await props.refetch()
             })
         }}>

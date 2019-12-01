@@ -77,7 +77,6 @@ export const resolvers ={
                 delete userExist.password
                 return {
                     token: createUser(userExist.email, process.env.SECRET_TOKEN, "23hr"),
-                    userData:userExist
                 }
             }
             else{

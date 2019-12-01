@@ -5,9 +5,10 @@
     height: 40px;
     border-radius: 50%;
     background-color: $grey1;
-    border:1px solid $darker;
+    border:1px solid $grey2;
     cursor:pointer;
     span{
         color:$darker;
+        text-transform: uppercase;
     }
 }

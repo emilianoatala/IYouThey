@@ -15,9 +15,8 @@ type UserLoged {
     email: String
 }
 
-type Loged {
+type Token {
     token:String
-    userData: UserLoged
 }
 
 
@@ -56,5 +55,5 @@ input UserLoginInput {
 type Mutation {
     setPost(input:PostInput): Post
     createUser(input:UserInput): User
-    validateUser(input:UserLoginInput):Loged
+    validateUser(input:UserLoginInput):Token
 }

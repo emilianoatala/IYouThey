@@ -1,0 +1,42 @@
+@import "../../assets/variables";
+
+.account-menu-container{
+    width: 200px;
+    background-color: $white;
+    -webkit-box-shadow: 10px 10px 15px 1px rgba(0,0,0,0.19);
+    -moz-box-shadow: 10px 10px 15px 1px rgba(0,0,0,0.19);
+    box-shadow: 10px 10px 15px 1px rgba(0,0,0,0.19);
+    .information-container{
+        height: 80px;
+        padding: 5px 10px 5px 10px;
+        align-items: center;
+        justify-content: space-between;
+
+        p{
+            width: 60%;
+            font-weight: bolder;
+            color:$darker;
+            font-size: 12px;
+        }
+    }
+    ul{
+        width: 100%;
+        li{
+            width: 100%;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 5px;
+            box-sizing: border-box;
+            cursor:pointer;
+
+        }
+        .logout{
+            background-color: $violet;
+            justify-content: center;
+            color:$white;
+
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {useMutation} from "@apollo/react-hooks"
 import { CREATE_USER, LOGIN_USER } from '../../../mutations'
-import { ROUTES } from "../../../helpers/routes"
+
 const SignupForm = (props) => {
     const [validateUser]=useMutation(LOGIN_USER, {onCompleted:()=>window.location.href="localhost:3000/dashboard"})
     const [createUser]=useMutation(CREATE_USER)
@@ -22,7 +22,7 @@ const SignupForm = (props) => {
             e.preventDefault();
             createUser({variables:{input:body}}).then(response=>{
                 validateUser({variables:{input:response.data.createUser}}).then(async response=>{
-                    localStorage.setItem("user", JSON.stringify(response.data.validateUser))
+                    localStorage.setItem("token", response.data.validateUser.token)
                     await props.refetch()
                 })
                 

@@ -7,8 +7,10 @@ import { ApolloProvider } from "react-apollo";
 import {client} from "./Client"
 import { GET_USER } from './querys';
 import { Query } from 'react-apollo'
+import { userContext } from './helpers/context';
 
   const App = () => {
+    
         return (
           <ApolloProvider client={client}>
             <Query query={GET_USER}>
@@ -17,13 +19,15 @@ import { Query } from 'react-apollo'
               if (error) return `Error ${error.message}`
               const redirect = !data.getUser ? <Redirect to={ROUTES.Home} /> : ""
               return  (
-                <Router>
-                {redirect}
-                <Switch>
-                  <Route exact path={ROUTES.Home} render={()=><SignUpContainer refetch={refetch} session={data.getUser}/>}/>
-                  <Route path={ROUTES.Dashboard} component={DashboardContainer}/>
-                </Switch>
-              </Router>
+                <userContext.Provider value={{user:data.getUser, refetch} || {}}>
+                  <Router>
+                  {redirect}
+                  <Switch>
+                    <Route exact path={ROUTES.Home} render={()=><SignUpContainer refetch={refetch} session={data.getUser}/>}/>
+                    <Route path={ROUTES.Dashboard} component={DashboardContainer} session={data.getUser}/>
+                  </Switch>
+                </Router>
+              </userContext.Provider>
               ) 
             }}
           </Query>

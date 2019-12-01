@@ -21,11 +21,5 @@ export const LOGIN_USER = gql `
 mutation validateUser($input:UserLoginInput) {
     validateUser(input:$input) {
         token
-        userData{
-            id
-            email
-            name
-            lastname
-        }
     }
 }`
