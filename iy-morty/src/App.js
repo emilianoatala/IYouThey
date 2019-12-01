@@ -1,63 +1,34 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ApolloProvider } from "react-apollo";
-import {  split } from 'apollo-link';
-import  { InMemoryCache } from "apollo-boost";
-import { config } from './config';
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { ROUTES } from './helpers/routes';
 import DashboardContainer from './components/dashboard/DashboardContainer';
-import { HttpLink } from 'apollo-link-http';
-import { WebSocketLink } from 'apollo-link-ws';
-import { getMainDefinition } from 'apollo-utilities';
-import ApolloClient from 'apollo-client'
+import SignUpContainer from './components/SignUp/SignUpContainer';
+import { ApolloProvider } from "react-apollo";
+import {client} from "./Client"
+import { GET_USER } from './querys';
+import { Query } from 'react-apollo'
 
-const httpLink = new HttpLink({
-  uri: config.SERVER_URI
-});
-
-
-const wsLink = new WebSocketLink({
-  uri: `ws://localhost:8070/graphql`,
-  options: {
-    reconnect: true
-  }
-});
-
-const link = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    );
-  },
-  wsLink,
-  httpLink,
-);
-
-
-const client = new ApolloClient({
-  link,
-  cache: new InMemoryCache({
-        addTypename: false
-      }),
-      onError: ({ networkError, graphQLErrors }) => {
-        console.log("graphQLErrors", graphQLErrors);
-        console.log("networkError", networkError);
-      },
-})
-
-
-function App() {
-  return (
-    <ApolloProvider client={client}>
-      <Router>
-            <Switch>
-              <Route path={ROUTES.Dashboard} component={DashboardContainer}/>
-            </Switch>
-      </Router>
-    </ApolloProvider>
-  );
+  const App = () => {
+        return (
+          <ApolloProvider client={client}>
+            <Query query={GET_USER}>
+             {({data, loading, error , refetch})=>{
+              if (loading) return null
+              if (error) return `Error ${error.message}`
+              const redirect = !data.getUser ? <Redirect to={ROUTES.Home} /> : ""
+              return  (
+                <Router>
+                {redirect}
+                <Switch>
+                  <Route exact path={ROUTES.Home} render={()=><SignUpContainer refetch={refetch} session={data.getUser}/>}/>
+                  <Route path={ROUTES.Dashboard} component={DashboardContainer}/>
+                </Switch>
+              </Router>
+              ) 
+            }}
+          </Query>
+        </ApolloProvider>
+        )    
 }
 
-export default App;
+export default App

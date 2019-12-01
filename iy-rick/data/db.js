@@ -11,4 +11,15 @@ const postsSchema = new Schema({
 
 const Posts = model("posts", postsSchema)
 
-export {Posts}
+
+const userSchema = new Schema({
+    name: String,
+    lastname:String,
+    email:String,
+    password:String
+})
+
+const Users = model("users", userSchema)
+
+
+export {Posts, Users}

@@ -34,7 +34,7 @@ const Chat = ({info}) => {
 
     return ( 
         <div className="chat" ref={messagesEndRef}>
-         {post.getAllPosts&&post.getAllPosts.map(item=> <ChatPost username="Emiliano" description={item.description} createdAt={item.createdAt}/>)} 
+         {post.getAllPosts && post.getAllPosts.map(item=> <ChatPost username="Emiliano" description={item.description} createdAt={item.createdAt}/>)} 
         </div>
      );
 }

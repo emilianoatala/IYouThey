@@ -10,3 +10,15 @@ export const GET_POSTS = gql `
     }
     
 `
+
+
+export const GET_USER = gql `
+    query {
+        getUser {
+            id
+            name
+            lastname
+            email
+        }
+    }   
+`

@@ -7,3 +7,25 @@ export const SET_POST = gql `
         }
     }
   `
+
+export const CREATE_USER = gql `
+mutation createUser($input:UserInput) {
+    createUser(input:$input) {
+        email
+        password
+    }
+}
+`
+
+export const LOGIN_USER = gql `
+mutation validateUser($input:UserLoginInput) {
+    validateUser(input:$input) {
+        token
+        userData{
+            id
+            email
+            name
+            lastname
+        }
+    }
+}`

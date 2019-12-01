@@ -8,8 +8,30 @@ type Subscription {
     newPost:Post
 }
 
+type UserLoged {
+    id:ID
+    name: String
+    lastname: String
+    email: String
+}
+
+type Loged {
+    token:String
+    userData: UserLoged
+}
+
+
+type User {
+    id:ID
+    name: String
+    lastname: String
+    email: String
+    password: String
+}
+
 type Query {
  getAllPosts : [Post]
+ getUser: UserLoged
 }
 
 input PostInput {
@@ -18,6 +40,21 @@ input PostInput {
     createdAt: String
 }
 
+input UserInput {
+    id:ID
+    name: String!
+    lastname: String!
+    email: String!
+    password: String!
+}
+
+input UserLoginInput {
+    email: String!
+    password: String!
+}
+
 type Mutation {
     setPost(input:PostInput): Post
+    createUser(input:UserInput): User
+    validateUser(input:UserLoginInput):Loged
 }
