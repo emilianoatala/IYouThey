@@ -2,10 +2,7 @@ type Post {
     id:ID
     description: String
     createdAt: String
-}
-
-type Subscription {
-    newPost:Post
+    user: UserLoged
 }
 
 type UserLoged {
@@ -18,7 +15,6 @@ type UserLoged {
 type Token {
     token:String
 }
-
 
 type User {
     id:ID
@@ -33,10 +29,15 @@ type Query {
  getUser: UserLoged
 }
 
+type Subscription {
+    newPost:Post
+}
+
 input PostInput {
     id:ID
-    description: String
+    description: String!
     createdAt: String
+    user: String
 }
 
 input UserInput {
@@ -45,6 +46,7 @@ input UserInput {
     lastname: String!
     email: String!
     password: String!
+    
 }
 
 input UserLoginInput {

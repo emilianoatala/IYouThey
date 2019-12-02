@@ -11,7 +11,11 @@ const app = express()
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async ({req}) =>{
+    context: async ({req, connection}) =>{
+        if (connection) {
+             // check connection for metadata
+             return connection.context;
+        } else {
         const token = req.headers["authorization"]
         if(token!=="null"){
             try{
@@ -24,7 +28,8 @@ const server = new ApolloServer({
                 console.log(error)
             }
         }
-             
+    }
+               
     }
 })
 

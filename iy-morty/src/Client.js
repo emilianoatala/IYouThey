@@ -23,12 +23,18 @@ const httpLink = new HttpLink({
     }
   });
   
+
   
   const wsLink = new WebSocketLink({
     uri: `ws://localhost:8070/graphql`,
     options: {
-      reconnect: true
-    },
+      reconnect: true,
+      connectionParams:{
+        authToken: (()=>localStorage.getItem("token"))()
+      }
+    }
+    
+    
   });
   
   const link = split(

@@ -6,10 +6,9 @@ import { SUBCRIBE_POST } from '../../../subscription';
 
 const messagesEndRef = React.createRef()
 
-const Chat = ({info}) => {
+const Chat = ({info, user}) => {
     const [post, setPosts]= useState({})
-    const { data} = useSubscription(
-        SUBCRIBE_POST)
+    const { data } = useSubscription(SUBCRIBE_POST)
 
     const scrollToBottom = () => {
         let scroll = messagesEndRef.current && messagesEndRef.current.scrollHeight + 3000
@@ -23,6 +22,7 @@ const Chat = ({info}) => {
 
     useEffect(()=>{
         if(data&&data.newPost!=={}){
+            
         const newData = {...post}
         newData.getAllPosts.push(data.newPost)
         setPosts(newData)
@@ -34,7 +34,7 @@ const Chat = ({info}) => {
 
     return ( 
         <div className="chat" ref={messagesEndRef}>
-         {post.getAllPosts && post.getAllPosts.map(item=> <ChatPost username="Emiliano" description={item.description} createdAt={item.createdAt}/>)} 
+         {post.getAllPosts && post.getAllPosts.map(item=> <ChatPost username={item.user&&item.user.name} description={item.description} createdAt={item.createdAt} user={user} id={item.user&&item.user.id}/>)} 
         </div>
      );
 }

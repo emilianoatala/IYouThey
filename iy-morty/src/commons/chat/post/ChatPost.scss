@@ -1,18 +1,21 @@
 @import "../../../assets/variables";
 
 .chat-post-container{
-    max-width: 90%;
+    max-width: 100%;
     width: auto;
     height: auto;
     min-height: 15px;
     margin-top: 15px;
     align-items: center;
     font-size: 14px;
+    ;
 
     .info-container{
+        max-width: 50%;
         background-color: $grey;
         padding: 10px 20px 10px 20px;
         border-radius: 20px;
+        justify-self: flex-end;
         >span{
             display: block;
             font-weight: bold;
@@ -26,8 +29,21 @@
                 margin-left: 10px;
             }
         }
+        &.current{
+            align-items: flex-end;
+            background-color: $lightViolet;
+            >span{
+                align-self: flex-end;
+                span{
+                    color: $white;
+                }
+                
+            }
+        }
     }
     
-    
+    &.current{
+        justify-content: flex-end;
+    }
 }
 

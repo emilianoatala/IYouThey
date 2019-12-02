@@ -6,6 +6,11 @@ export const GET_POSTS = gql `
             id
             description
             createdAt
+            user{
+                name
+                lastname
+                id
+            }
         }
     }
     

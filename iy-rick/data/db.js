@@ -6,7 +6,8 @@ mongoose.connect("mongodb://localhost/iYouThey", {useNewUrlParser:true})
 
 const postsSchema = new Schema({
     description: String,
-    createdAt:String
+    createdAt:String,
+    user: mongoose.Types.ObjectId
 })
 
 const Posts = model("posts", postsSchema)
@@ -16,7 +17,7 @@ const userSchema = new Schema({
     name: String,
     lastname:String,
     email:String,
-    password:String
+    password:String,
 })
 
 const Users = model("users", userSchema)
