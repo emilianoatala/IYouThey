@@ -22,5 +22,11 @@ const userSchema = new Schema({
 
 const Users = model("users", userSchema)
 
+const onlineSchema = new Schema({
+    
+})
 
-export {Posts, Users}
+const Online = model("online", onlineSchema)
+
+
+export {Posts, Users, Online}

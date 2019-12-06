@@ -1,9 +1,13 @@
 import { rejects } from "assert"
-import { Posts, Users } from "./db";
+import { Posts, Users, Online } from "./db";
 import jwt from "jsonwebtoken"
 const { PubSub } = require('apollo-server');
 const pubsub = new PubSub();
 const POST_ADDED = 'POST_ADDED';
+const USER_LOGGED = 'USER_LOGGED';
+const USER_DISCONNECTED = 'USER_DISCONNECTED';
+
+
 
 require("dotenv").config()
 
@@ -50,7 +54,6 @@ export const resolvers ={
                         resolve(newPost)
                         let sendPost = newPost.toObject()
                         sendPost.user = user[0]
-                        console.log(sendPost)
                         pubsub.publish(POST_ADDED, {newPost:sendPost});   
                     }
                 })
@@ -91,6 +94,20 @@ export const resolvers ={
 
             if (password === userExist.password){
                 delete userExist.password
+                let userLogged = new Online({})
+                userLogged.id=userLogged._id
+                new Promise((resolve, object)=>{
+                    userLogged.save(error=>{ 
+                        if (error) rejects(error)
+                        else {
+                            pubsub.publish(USER_LOGGED, {userLogged:userExist})
+                            resolve(userLogged)
+                        }
+                    })
+                })
+
+
+                
                 return {
                     token: createUser(userExist.email, process.env.SECRET_TOKEN, "23hr"),
                 }
@@ -98,13 +115,28 @@ export const resolvers ={
             else{
                 throw new Error ("password is incorrect")
             }
+        },
+        logout: (root,{id})=>{
+            return new Promise ((resolve, object)=>{
+                Online.findOneAndDelete({_id:id}, error=>{
+                    if (error) reject(error)
+                    else {
+                        pubsub.publish(USER_DISCONNECTED, {userDisconnected:{id}})
+                        resolve({message:'Users succesfull deleted'})
+                    }
+                })
+            })
         }
     },
     Subscription:{
         newPost:{
-            subscribe: () => pubsub.asyncIterator([POST_ADDED])
-               
-                
+            subscribe: () => pubsub.asyncIterator([POST_ADDED])       
+        },
+        userLogged:{
+            subscribe: () => pubsub.asyncIterator([USER_LOGGED])       
+        },
+        userDisconnected:{
+            subscribe: () => pubsub.asyncIterator([USER_DISCONNECTED])       
         }
     }
     

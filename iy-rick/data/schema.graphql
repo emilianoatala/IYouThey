@@ -12,6 +12,10 @@ type UserLoged {
     email: String
 }
 
+type UserDisconnected {
+    message: String
+}
+
 type Token {
     token:String
 }
@@ -23,6 +27,9 @@ type User {
     email: String
     password: String
 }
+type Id {
+    id:String
+}
 
 type Query {
  getAllPosts : [Post]
@@ -31,6 +38,8 @@ type Query {
 
 type Subscription {
     newPost:Post
+    userLogged: UserLoged
+    userDisconnected: Id
 }
 
 input PostInput {
@@ -58,4 +67,5 @@ type Mutation {
     setPost(input:PostInput): Post
     createUser(input:UserInput): User
     validateUser(input:UserLoginInput):Token
+    logout(id:String):UserDisconnected
 }

@@ -13,3 +13,13 @@ export const SUBCRIBE_POST = gql`
         }
     }
 `
+
+export const USER_LOGGED = gql`
+    subscription userLogged{
+        userLogged{
+            id
+            name
+            lastname
+        }
+    }
+`
