@@ -1,35 +1,34 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import './UserLoggedBox.scss'
 import UserCard from '../userCard/UserCard';
-import { USER_LOGGED } from '../../../subscription';
+import { useSubscription} from "@apollo/react-hooks"
+import { USER_LOGGED, USER_DISCONNECTED } from '../../../subscription';
 
 const UserLoggedBox = ({array}) => {
-    const [users, setUsers]= useState([])
+    const [users, setUsers]= useState(array)
     const logged = useSubscription(USER_LOGGED)
     const disconnected = useSubscription(USER_DISCONNECTED)
-    const {data, loading, error} = useQuery(GET_USER_LOGGED)
     
-
     useEffect(()=>{
-        setUsers(array)
-    },[] )
-    
-
+        if (logged.data !== undefined ){
+            let newUsers= [...users]
+            newUsers.push({user:logged.data.userLogged})
+            setUsers(newUsers)
+        }
+    },[logged.data] )
+   
     useEffect(()=>{
-        let newUsers={...users}
-        newUsers.push()
-        setUsers(newUsers)
-    },[logged] )
-
-    useEffect(()=>{
-
-    },[disconnected] )
+        if (disconnected.data  !== undefined){
+            let newUsers= users.filter(item=>item.user.id !== disconnected.data.userDisconnected.id)
+            setUsers(newUsers)
+        }
+    },[disconnected.data] )
 
     return ( 
         <div className="user-logged-box-container column-container">
             <h3>Users in the Room</h3>
             <div className="cards-container column-container">
-                <UserCard data={{name:"Emiliano Atala"}}/>
+            {users !=="" && users.map(item => <UserCard key={item.user.id} data={item.user}/>)}
             </div>
         </div>
      );

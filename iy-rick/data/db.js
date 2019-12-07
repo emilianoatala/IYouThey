@@ -23,7 +23,7 @@ const userSchema = new Schema({
 const Users = model("users", userSchema)
 
 const onlineSchema = new Schema({
-    
+    user: mongoose.Types.ObjectId
 })
 
 const Online = model("online", onlineSchema)

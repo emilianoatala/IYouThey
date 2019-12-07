@@ -12,6 +12,10 @@ type UserLoged {
     email: String
 }
 
+type UserOnline {
+    user:UserLoged
+}
+
 type UserDisconnected {
     message: String
 }
@@ -34,6 +38,7 @@ type Id {
 type Query {
  getAllPosts : [Post]
  getUser: UserLoged
+ getUserLogged:[UserOnline]
 }
 
 type Subscription {

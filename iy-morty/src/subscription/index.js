@@ -23,3 +23,11 @@ export const USER_LOGGED = gql`
         }
     }
 `
+
+export const USER_DISCONNECTED = gql`
+    subscription userDisconnected{
+        userDisconnected{
+            id
+        }
+    }
+`

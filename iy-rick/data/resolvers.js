@@ -7,8 +7,6 @@ const POST_ADDED = 'POST_ADDED';
 const USER_LOGGED = 'USER_LOGGED';
 const USER_DISCONNECTED = 'USER_DISCONNECTED';
 
-
-
 require("dotenv").config()
 
 const createUser = (email, secret, expiresIn)=> jwt.sign({email}, secret, {expiresIn})
@@ -32,7 +30,18 @@ export const resolvers ={
             const user = Users.findOne({email:currentUser.email})
 
             return user
-        }
+        },
+        getUserLogged:  (root)=>{
+            return new Promise((resolve, object)=>{
+              Online.find({}, (error, users)=>{
+                  Users.populate(users,{path:"user"}, (error, users)=>{
+                    if (error) rejects(error)
+                    resolve(users) 
+                  })
+              })
+            })
+        }   
+        
     },
     Mutation:{
         setPost: async (root, {input})=>{
@@ -94,7 +103,9 @@ export const resolvers ={
 
             if (password === userExist.password){
                 delete userExist.password
-                let userLogged = new Online({})
+                let userLogged = new Online({
+                    user:userExist.id
+                })
                 userLogged.id=userLogged._id
                 new Promise((resolve, object)=>{
                     userLogged.save(error=>{ 
@@ -118,7 +129,7 @@ export const resolvers ={
         },
         logout: (root,{id})=>{
             return new Promise ((resolve, object)=>{
-                Online.findOneAndDelete({_id:id}, error=>{
+                Online.findOneAndRemove({user:id}, error=>{
                     if (error) reject(error)
                     else {
                         pubsub.publish(USER_DISCONNECTED, {userDisconnected:{id}})
@@ -135,8 +146,8 @@ export const resolvers ={
         userLogged:{
             subscribe: () => pubsub.asyncIterator([USER_LOGGED])       
         },
-        userDisconnected:{
-            subscribe: () => pubsub.asyncIterator([USER_DISCONNECTED])       
+        userDisconnected:{ 
+            subscribe: () =>pubsub.asyncIterator([USER_DISCONNECTED])    
         }
     }
     

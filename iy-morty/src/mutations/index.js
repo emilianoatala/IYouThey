@@ -23,3 +23,10 @@ mutation validateUser($input:UserLoginInput) {
         token
     }
 }`
+
+export const LOGOUT_USER = gql `
+mutation logout($id:String) {
+    logout(id:$id) {
+        message
+    }
+}`
