@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const GET_POSTS = gql `
+export const GET_POSTS_AND_USER_LOGGED = gql `
     query {
         getAllPosts {
             id
@@ -8,15 +8,20 @@ export const GET_POSTS = gql `
             createdAt
             user{
                 name
-                lastname
                 id
             }
+        }
+        getUserLogged {
+            user {
+                id
+                name
+                lastname
+            }
+            
         }
     }
     
 `
-
-
 export const GET_USER = gql `
     query {
         getUser {
@@ -28,16 +33,16 @@ export const GET_USER = gql `
     }   
 `
 
-export const GET_USER_LOGGED = gql `
-    query {
-        getUserLogged {
-            user {
-                id
-                name
-                lastname
-                email
-            }
+// export const GET_USER_LOGGED = gql `
+//     query {
+//         getUserLogged {
+//             user {
+//                 id
+//                 name
+//                 lastname
+//                 email
+//             }
             
-        }
-    }   
-`
+//         }
+//     }   
+// `

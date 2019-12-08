@@ -26,7 +26,6 @@ const UserLoggedBox = ({array}) => {
 
     return ( 
         <div className="user-logged-box-container column-container">
-            <h3>Users in the Room</h3>
             <div className="cards-container column-container">
             {users !=="" && users.map(item => <UserCard key={item.user.id} data={item.user}/>)}
             </div>

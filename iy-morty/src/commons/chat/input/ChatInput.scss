@@ -1,18 +1,46 @@
 @import "../../../assets/variables";
 
 .chat-input-container{
-    height: 40px;
+    height: 80px;
     width: 100%;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 10px;
     border-top: 1px solid $grey1;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
 
+    .input-outline{
+        height: 40px;
+        border: 1px solid $grey2;
+        width: 100%;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+        justify-content: space-between;
+    
+    label{
+        margin-left: 20px;
+        svg{
+            transform: scale(0.9);
+            -webkit-transform: scale(0.9);
+            -moz-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+            -o-transform: scale(0.9);
+            cursor: pointer;
+        }
+    }
     input{
-        border: none;
-        border-bottom: 1px solid $grey2; 
+        border: none; 
         width: 90%;
         outline: none;
-        margin-left: 30px;
+        margin-left: 10px;
+    }
+    >svg{
+        align-self: center;
+        color: $lightViolet;
+        margin-right: 10px;
+        cursor: pointer;
+    }
     }
 }

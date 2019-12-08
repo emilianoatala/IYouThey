@@ -6,7 +6,7 @@ const UserCard = ({data}) => {
     return ( 
         <div className="user-card-container row-container">
             <AccountButton username={data.name}/>
-            <p>{data.name}</p>
+            <p>{data.name} {data.lastname}</p>
         </div>
      );
 }
