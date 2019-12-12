@@ -1,0 +1,30 @@
+@import "../../../assets/variables";
+
+.form-container{
+    align-items: center;
+
+    width: 20%;
+    height: 350px;
+    
+
+    form{
+        align-items: center;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+
+        label{
+            margin-top: 20px;
+            align-self: flex-start;
+            font-size: 12px;
+            margin-left: 10%;
+        }
+        .form-item{
+            background-color: transparent;
+            width: 80%;
+            border:none;
+            border-bottom: 2px solid $grey2;
+            outline: none;
+        }
+    }
+}

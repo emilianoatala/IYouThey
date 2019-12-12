@@ -21,8 +21,28 @@ div{
 
 ul{
       list-style: none;
+      list-style-type: none;
+      padding: 0px;
+      margin:0px;
 }
 
 p{
   margin: 0px;
+}
+
+.btn-generic{
+    width: 80%;
+    margin-top: 20px;
+    height: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: $violet;
+    color:$white;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }

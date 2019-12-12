@@ -1,20 +1,39 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import "./Chat.scss"
 import ChatPost from '../post/ChatPost';
-import {useQuery} from "@apollo/react-hooks"
-import { GET_POSTS } from '../../../querys';
+import { useSubscription} from "@apollo/react-hooks"
+import { SUBCRIBE_POST } from '../../../subscription';
 
-const Chat = () => {
-    const {data, loading, error} = useQuery(GET_POSTS,{
-        pollInterval:10
-    })
+const messagesEndRef = React.createRef()
+
+const Chat = ({info, user}) => {
+    const [post, setPosts]= useState([])
+    const { data } = useSubscription(SUBCRIBE_POST)
+
+    const scrollToBottom = () => {
+        let scroll = messagesEndRef.current && messagesEndRef.current.scrollHeight + 3000
+        messagesEndRef.current.scrollTo(0,scroll)
+      }
+
+    useEffect(()=>{
+       setPosts(info)
+    }, [info])
+    
+
+    useEffect(()=>{
+        if(data&&data.newPost!=={}){  
+        const newData = [...post]
+        newData.push(data.newPost)
+        setPosts(newData)
+        }
+    },[data])
+
+    
+    useEffect(scrollToBottom,[post])
+
     return ( 
-        <div className="chat">
-        {(()=>{
-            if(loading) return "Loading.."
-            if(error) return `Error: ${error.message}`
-            return (data.getAllPosts.map(item=> <ChatPost username="Emiliano" description={item.description} createdAt={item.createdAt}/>))
-            })()}
+        <div className="chat" ref={messagesEndRef}>
+         {post && post.map(item=> <ChatPost username={item.user&&item.user.name} description={item.description} createdAt={item.createdAt} user={user} id={item.user&&item.user.id}/>)} 
         </div>
      );
 }

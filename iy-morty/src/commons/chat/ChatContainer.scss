@@ -1,10 +1,13 @@
 @import "../../assets/variables";
 
 .chat-main-container{
-    width: 80%;
-    height: calc(100vh - 100px);
-    background-color: $white;
-    border-radius: 30px;
+    width: 100%;
+    height: 100vh;
+    border:1px solid $grey1;
+    border-left: none;
+    -webkit-box-shadow: -9px 5px 14px 0px rgba(0,0,0,0.27);
+    -moz-box-shadow: -9px 5px 14px 0px rgba(0,0,0,0.27);
+    box-shadow: -9px 5px 14px 0px rgba(0,0,0,0.27);
     .chat{
         width: 100%;
         height: calc(100% - 40px);

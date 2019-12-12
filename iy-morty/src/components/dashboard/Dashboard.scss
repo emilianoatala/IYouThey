@@ -2,13 +2,15 @@
 
 .dashboard-main-container{
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 60px 1fr;
     height: 100vh;
-    background-color: $grey;
     .right-section-container{
         align-items: center;
-        .chat-main-container{
-            margin-top: 20px;
+        .app-section{
+            height: calc(100vh - 60px);
+            width: 100%;
+            display: grid;
+            grid-template-columns: 2fr 5fr;
         }
     }
 }
